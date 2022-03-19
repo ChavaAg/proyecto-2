@@ -21,17 +21,25 @@
         </div>
     @endif
 
-    <form action="/evento" method="POST">
+
+
+    @isset($evento)
+        <form action="/evento/{{$evento->id}}" method="POST"> {{-- editar --}}
+            @method('PATCH')
+    @else
+        <form action="/evento" method="POST"> {{-- crear --}}
+    @endisset
+
         @csrf
 
         <label for="nombre">Nombre</label>
-        <input type="text" name="nombre"><br>
+        <input type="text" name="nombre" value={{isset($evento) ? $evento->nombre : ''}}{{old('nombre')}}><br>
         <label for="lugar">Lugar</label>
-        <input type="text" name="lugar"><br>
+        <input type="text" name="lugar" value={{isset($evento) ? $evento->lugar : ''}}{{old('lugar')}}><br>
         <label for="grupo">Grupo</label>
-        <input type="text" name="grupo"><br>
+        <input type="text" name="grupo" value={{isset($evento) ? $evento->grupo : ''}}{{old('grupo')}}><br>
         <label for="descripcion">Descripcion</label><br>
-        <textarea name="descripcion" id="descripcion" cols="30" rows="10"></textarea><br>
+        <textarea name="descripcion" id="descripcion" cols="30" rows="10">{{isset($evento) ? $evento->descripcion : ''}}{{old('descripcion')}}</textarea><br>
         <input type="submit" value="Enviar">
     </form>
 </body>

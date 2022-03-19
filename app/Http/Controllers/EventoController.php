@@ -40,12 +40,14 @@ class EventoController extends Controller
             'nombre'=>'required|min:5|max:50',
             'lugar'=>'required|min:5|max:20',
             'grupo'=>'required|min:3|max:20',
+            'descripcion'=>'required|min:5|max:30',
         ]);
 
         $evento = new Evento();
         $evento->nombre = $request->nombre;
         $evento->lugar = $request->lugar;
         $evento->grupo = $request->grupo;
+        $evento->descripcion = $request->descripcion;
         $evento->save();
 
         return redirect('/evento');
@@ -70,7 +72,7 @@ class EventoController extends Controller
      */
     public function edit(Evento $evento)
     {
-        //
+        return view('evento/formEvento', compact('evento'));
     }
 
     /**
@@ -82,7 +84,20 @@ class EventoController extends Controller
      */
     public function update(Request $request, Evento $evento)
     {
-        //
+        $request->validate([
+            'nombre'=>'required|min:5|max:50',
+            'lugar'=>'required|min:5|max:20',
+            'grupo'=>'required|min:3|max:20',
+            'descripcion'=>'required|min:5|max:30',
+        ]);
+
+        $evento->nombre = $request->nombre;
+        $evento->lugar = $request->lugar;
+        $evento->grupo = $request->grupo;
+        $evento->descripcion = $request->descripcion;
+        $evento->save();
+
+        return redirect('/evento');
     }
 
     /**
@@ -93,6 +108,7 @@ class EventoController extends Controller
      */
     public function destroy(Evento $evento)
     {
-        //
+        $evento->delete();
+        return redirect('/evento');
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\EventoController;
+use App\Models\Evento;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,7 +18,8 @@ use Illuminate\Support\Facades\Route;
 Route::resource('/evento',EventoController::class);
 
 Route::get('/', function () {
-    return view('welcome');
+    $eventos = Evento::all();
+    return view('/evento/indexEvento' , compact('eventos'));
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
